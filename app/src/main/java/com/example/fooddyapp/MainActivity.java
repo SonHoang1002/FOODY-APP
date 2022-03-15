@@ -1,6 +1,7 @@
 package com.example.fooddyapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Spinner spinner;
     List<String> tags = new ArrayList<>();
+    SearchView searchView;
 
 
     @Override
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading...");
+        searchView =findViewById(R.id.searchView_home);
 
         spinner = findViewById(R.id.spinner_tabs);
         ArrayAdapter arrayAdapter= ArrayAdapter.createFromResource(
@@ -49,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(arrayAdapter);
         Log.d("abc","before setOnItemSelectedListener");
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                tags.clear();
+                tags.add(query);
+                manager.getRandomRecipes(randomRecipeResponseListener,tags);
+                dialog.show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         manager = new RequestManager(this);
 
