@@ -1,6 +1,7 @@
 package com.example.fooddyapp;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.fooddyapp.Listeners.RandomRecipeResponseListener;
 import com.example.fooddyapp.Models.RandomRecipeApiResponse;
@@ -22,14 +23,18 @@ public class RequestManager {
             .baseUrl("https://api.spoonacular.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
-
     public RequestManager(Context context) {
         this.context = context;
     }
+    public void getRandomRecipes(RandomRecipeResponseListener listener,List<String> tags){
 
-    public void getRandomRecipes(RandomRecipeResponseListener listener){
+        Log.d("abc","RequestManager - getRandomRecipes");
+
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
-        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key), "10");
+        Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key), "20",tags);
+
+        Log.d("abc","This is Call function toString(): " + call.toString());
+
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
             @Override
             public void onResponse(Call<RandomRecipeApiResponse> call, Response<RandomRecipeApiResponse> response) {
@@ -39,11 +44,9 @@ public class RequestManager {
                 }
                 listener.didFerch(response.body(),response.message());
             }
-
             @Override
             public void onFailure(Call<RandomRecipeApiResponse> call, Throwable t) {
                 listener.didError(t.getMessage());
-
             }
         });
     }
@@ -51,8 +54,8 @@ public class RequestManager {
         @GET("recipes/random")
       Call<RandomRecipeApiResponse> callRandomRecipe(
               @Query("apiKey") String apiKey,
-              @Query("number") String number
-//              @Query("tags") List<String> tags
+              @Query("number") String number,
+              @Query("tags") List<String> tags
       );
     }
 }

@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     RandomRecipeAdapter randomRecipeAdapter;
     RecyclerView recyclerView;
     Spinner spinner;
-//    List<String> tags = new ArrayList<>();
+    List<String> tags = new ArrayList<>();
 
 
     @Override
@@ -43,12 +45,16 @@ public class MainActivity extends AppCompatActivity {
                 this,R.array.tags, R.layout.spinner_text) ;
 
         arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
+        Log.d("abc","before setAdapter");
         spinner.setAdapter(arrayAdapter);
-//        spinner.setOnItemSelectedListener(spinnerSelectedListener);
+        Log.d("abc","before setOnItemSelectedListener");
+        spinner.setOnItemSelectedListener(spinnerSelectedListener);
 
         manager = new RequestManager(this);
-        manager.getRandomRecipes(randomRecipeResponseListener);
-        dialog.show();
+
+
+//        manager.getRandomRecipes(randomRecipeResponseListener);
+//        dialog.show();
     }
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
         @Override
@@ -65,18 +71,26 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     };
+
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//            tags.clear();
-//            tags.add(adapterView.getSelectedItem().toString());
-//            manager.getRandomRecipes(randomRecipeResponseListener,tags);
-//            dialog.show();
+            Log.d("abc","onItemSelected Function");
+            tags.clear();
+            tags.add(adapterView.getSelectedItem().toString());
+            if(tags ==null ){
+                Log.d("abc","No Context");
+            }
+            String joined = TextUtils.join(", ", tags);
+            Log.d("abc","This is tags context: "+ joined);
+            manager.getRandomRecipes(randomRecipeResponseListener,tags);
+            dialog.show();
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
 
+            Log.d("abc","onNothingSelected Function");
         }
     };
 }
