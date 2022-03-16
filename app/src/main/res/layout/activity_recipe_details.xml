@@ -63,6 +63,15 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="normal" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_meal_similar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+
+
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

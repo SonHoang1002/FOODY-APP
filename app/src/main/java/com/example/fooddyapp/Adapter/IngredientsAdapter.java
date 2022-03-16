@@ -32,11 +32,11 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsViewHold
     @Override
     public IngredientsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new IngredientsViewHolder(LayoutInflater.from(context).inflate(R.layout.list_meal_ingredients,parent,false));
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull IngredientsViewHolder holder, int position) {
+
         holder.textView_ingredient_name.setText(list.get(position).name);
         holder.textView_ingredient_name.setSelected(true);
         holder.textView_ingredient_quantity.setText(list.get(position).original);
@@ -49,18 +49,19 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsViewHold
     public int getItemCount() {
         return list.size();
     }
+
 }
 class IngredientsViewHolder extends RecyclerView.ViewHolder{
 
     TextView textView_ingredient_quantity,textView_ingredient_name;
     ImageView imageView_ingredient;
+
     public IngredientsViewHolder(@NonNull View itemView) {
         super(itemView);
+
         textView_ingredient_quantity = itemView.findViewById(R.id.textView_ingredient_quantity);
         textView_ingredient_name = itemView.findViewById(R.id.textView_ingredient_name);
         imageView_ingredient = itemView.findViewById(R.id.imageView_ingredient);
-
-
 
     }
 }

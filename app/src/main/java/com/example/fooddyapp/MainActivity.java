@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
                 this,R.array.tags, R.layout.spinner_text) ;
 
         arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
-        Log.d("abc","before setAdapter");
+//        Log.d("abc","before setAdapter");
         spinner.setAdapter(arrayAdapter);
-        Log.d("abc","before setOnItemSelectedListener");
+//        Log.d("abc","before setOnItemSelectedListener");
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
