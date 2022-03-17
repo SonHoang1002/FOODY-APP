@@ -3,9 +3,11 @@ package com.example.fooddyapp;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.fooddyapp.Listeners.InstructionsListener;
 import com.example.fooddyapp.Listeners.RandomRecipeResponseListener;
 import com.example.fooddyapp.Listeners.RecipeDetailsListener;
 import com.example.fooddyapp.Listeners.SimilarRecipesListener;
+import com.example.fooddyapp.Models.InstructionsResponse;
 import com.example.fooddyapp.Models.RandomRecipeApiResponse;
 import com.example.fooddyapp.Models.RecipeDetailsResponse;
 import com.example.fooddyapp.Models.SimilarRecipeResponse;
@@ -81,6 +83,7 @@ public class RequestManager {
               @Query("tags") List<String> tags
       );
     }
+    //recipes/324694/analyzedInstructions
     private interface CallRecipeDetails{
        @GET("recipes/{id}/information")
        Call<RecipeDetailsResponse> callRecipeDetails(
@@ -88,6 +91,7 @@ public class RequestManager {
            @Query("apiKey") String apiKey
        );
     }
+
     private interface CallSimilarRecipes{
         @GET("recipes/{id}/similar")
         Call<List<SimilarRecipeResponse>> callSimilarRecipes(
@@ -118,5 +122,31 @@ public class RequestManager {
         });
 
     }
-    //8:31
+    private interface CallInstructions{
+        @GET("recipes/{id}/analyzedInstructions")
+        Call<List<InstructionsResponse>> callInstruction(
+                @Path("id") int id,
+                @Query("apiKey") String apiKey
+        );
+    }
+    public void getInstructions(InstructionsListener listener, int id) {
+        CallInstructions callInstructions = retrofit.create(CallInstructions.class);
+        Call<List<InstructionsResponse>> call = callInstructions.callInstruction(id, context.getString(R.string.api_key));
+
+        call.enqueue(new Callback<List<InstructionsResponse>>() {
+            @Override
+            public void onResponse(Call<List<InstructionsResponse>> call, Response<List<InstructionsResponse>> response) {
+                if (!response.isSuccessful()) {
+                    listener.didError(response.message());
+                    return;
+                }
+                listener.didFetch(response.body(), response.message());
+            }
+
+            @Override
+            public void onFailure(Call<List<InstructionsResponse>> call, Throwable t) {
+
+            }
+        });
+    }
 }

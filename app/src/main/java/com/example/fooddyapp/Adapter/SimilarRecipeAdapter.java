@@ -56,8 +56,6 @@ public class SimilarRecipeAdapter extends RecyclerView.Adapter<SimilarRecipeView
         });
     }
 
-
-
     @Override
     public int getItemCount() {
         return list.size();
