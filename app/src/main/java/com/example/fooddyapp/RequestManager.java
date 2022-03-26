@@ -47,7 +47,7 @@ public class RequestManager {
                     listener.didError(response.message());
                     return;
                 }
-                listener.didFerch(response.body(),response.message());
+                listener.didFetch(response.body(),response.message());
             }
             @Override
             public void onFailure(Call<RandomRecipeApiResponse> call, Throwable t) {

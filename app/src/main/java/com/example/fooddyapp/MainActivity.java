@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
         @Override
-        public void didFerch(RandomRecipeApiResponse response, String message) {
+        public void didFetch(RandomRecipeApiResponse response, String message) {
             recyclerView = findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
