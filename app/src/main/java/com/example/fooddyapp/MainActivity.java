@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("abc","onNothingSelected Function");
         }
     };
+
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
         @Override
         public void onRecipeClicked(String id) {

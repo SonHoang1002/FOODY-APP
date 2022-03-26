@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fooddyapp.Listeners.IngredientClickListener;
 import com.example.fooddyapp.Listeners.RecipeClickListener;
 import com.example.fooddyapp.Listeners.RecipeDetailsListener;
 import com.example.fooddyapp.Models.SimilarRecipeResponse;

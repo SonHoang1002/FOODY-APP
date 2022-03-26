@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.fooddyapp.Adapter.IngredientsAdapter;
 import com.example.fooddyapp.Adapter.InstructionsAdapter;
 import com.example.fooddyapp.Adapter.SimilarRecipeAdapter;
+import com.example.fooddyapp.Listeners.IngredientClickListener;
 import com.example.fooddyapp.Listeners.InstructionsListener;
 import com.example.fooddyapp.Listeners.RecipeClickListener;
 import com.example.fooddyapp.Listeners.RecipeDetailsListener;
@@ -56,6 +57,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         manager.getRecipeDetails(recipeDetailsListener, id);
         manager.getSimilarRecipes(similarRecipesListener,id);
         manager.getInstructions(instructionsListener,id);
+
+
 
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading Details...");
@@ -119,11 +122,21 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         }
     };
 
-    private final RecipeClickListener recipeClickListener =new RecipeClickListener() {
-        @Override
-        public void onRecipeClicked(String id) {
-
-            Toast.makeText(RecipeDetailsActivity.this,id,Toast.LENGTH_SHORT).show();
-        }
-    };
+//    private final IngredientClickListener ingredientClickListener = new IngredientClickListener() {
+//        @Override
+//        public void onIngredientClick(String id) {
+//            startActivity(new Intent(RecipeDetailsActivity.this, RecipeDetailsActivity.class)
+//                    .putExtra("id",id)
+//            );
+//
+//        }
+//    };
+private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
+    @Override
+    public void onRecipeClicked(String id) {
+        startActivity(new Intent(RecipeDetailsActivity.this, RecipeDetailsActivity.class)
+                .putExtra("id",id)
+        );
+    }
+};
 }
